@@ -1,0 +1,43 @@
+
+
+<h2>Issued Books</h2>
+<a class="btn" href="/issues/new">+ Issue New Book</a>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>User</th>
+      <th>Book</th>
+      <th>Issue Date</th>
+      <th>Due Date</th>
+      <th>Return Date</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if (issues.length === 0) { %>
+      <tr><td colspan="7">No issues found.</td></tr>
+    <% } else { %>
+      <% issues.forEach(i => { %>
+        <tr>
+          <td><%= i.id %></td>
+          <td><%= i.user_name %></td>
+          <td><%= i.book_title %></td>
+          <td><%= i.issue_date.toISOString().slice(0,10) %></td>
+          <td><%= i.due_date ? i.due_date.toISOString().slice(0,10) : '-' %></td>
+          <td><%= i.return_date ? i.return_date.toISOString().slice(0,10) : '-' %></td>
+          <td>
+            <% if (!i.return_date) { %>
+              <form action="/issues/<%= i.id %>/return" method="POST">
+                <button type="submit" class="btn small">Mark Returned</button>
+              </form>
+            <% } else { %>
+              Returned
+            <% } %>
+          </td>
+        </tr>
+      <% }) %>
+    <% } %>
+  </tbody>
+</table>

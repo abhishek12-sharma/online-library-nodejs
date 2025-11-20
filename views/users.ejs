@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Users - Library</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- Theme Toggle Button -->
+  <div class="theme-toggle">
+    <button id="toggleTheme">🌙 <span>Night</span></button>
+  </div>
+
+  <main class="page">
+    <header class="page-header">
+      <div>
+        <h2>👤 Users</h2>
+        <p>View and manage registered library members.</p>
+      </div>
+      <a href="/users/new" class="btn-primary">+ Add New User</a>
+    </header>
+
+    <section class="table-wrapper">
+      <table class="styled-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (!users || users.length === 0) { %>
+            <tr>
+              <td colspan="3" class="empty-row">No users yet.</td>
+            </tr>
+          <% } else { %>
+            <% users.forEach(u => { %>
+              <tr>
+                <td><%= u.id %></td>
+                <td><%= u.name %></td>
+                <td><%= u.email %></td>
+              </tr>
+            <% }) %>
+          <% } %>
+        </tbody>
+      </table>
+    </section>
+
+    <footer class="page-footer">
+      <a href="/" class="link-muted">← Back to Dashboard</a>
+    </footer>
+  </main>
+
+  <script src="/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "online-library",
+  "version": "1.0.0",
+  "description": "Simple Online Library Management System using Node.js, Express, MySQL",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "express-ejs-layouts": "^2.5.1",
+    "express-session": "^1.18.2",
+    "mysql2": "^3.11.3"
+  }
+}

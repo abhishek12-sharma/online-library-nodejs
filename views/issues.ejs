@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Issued Books - Library</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- Theme Toggle Button -->
+  <div class="theme-toggle">
+    <button id="toggleTheme">🌙 <span>Night</span></button>
+  </div>
+
+  <main class="page">
+    <header class="page-header">
+      <div>
+        <h2>📖 Issued Books</h2>
+        <p>View and manage all currently issued books.</p>
+      </div>
+      <a href="/issues/new" class="btn-primary">+ Issue New Book</a>
+    </header>
+
+    <section class="table-wrapper">
+      <table class="styled-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>User</th>
+            <th>Book</th>
+            <th>Issue Date</th>
+            <th>Due Date</th>
+            <th>Return Date</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (!issues || issues.length === 0) { %>
+            <tr>
+              <td colspan="7" class="empty-row">No issues yet.</td>
+            </tr>
+          <% } else { %>
+            <% issues.forEach(i => { %>
+              <tr class="<%= i.return_date ? 'returned-row' : 'active-row' %>">
+                <td><%= i.id %></td>
+                <td><%= i.user_name %></td>
+                <td><%= i.book_title %></td>
+                <td><%= i.issue_date.toISOString().slice(0,10) %></td>
+                <td><%= i.due_date ? i.due_date.toISOString().slice(0,10) : '-' %></td>
+                <td><%= i.return_date ? i.return_date.toISOString().slice(0,10) : '-' %></td>
+                <td>
+                  <% if (!i.return_date) { %>
+                    <form action="/issues/<%= i.id %>/return" method="POST" class="inline-form">
+                      <button type="submit" class="btn-secondary">Mark Returned</button>
+                    </form>
+                  <% } else { %>
+                    <span class="tag tag-success">Returned</span>
+                  <% } %>
+                </td>
+              </tr>
+            <% }) %>
+          <% } %>
+        </tbody>
+      </table>
+    </section>
+
+    <footer class="page-footer">
+      <a href="/" class="link-muted">← Back to Dashboard</a>
+    </footer>
+  </main>
+
+  <script src="/js/script.js"></script>
+</body>
+</html>

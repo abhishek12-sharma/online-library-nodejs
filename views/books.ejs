@@ -1,0 +1,120 @@
+<main class="page">
+
+  <header class="page-header">
+    <div>
+      <h2>📚 Books</h2>
+      <p>Browse all books in the library and manage inventory.</p>
+    </div>
+
+    <div class="page-actions">
+      <div class="search-box">
+        <input
+          type="text"
+          id="bookSearch"
+          class="search-input"
+          placeholder="Search by title, author or ISBN..."
+        >
+      </div>
+      <a href="/books/new" class="btn-primary">+ Add New Book</a>
+    </div>
+  </header>
+
+  <section class="table-wrapper">
+    <table class="styled-table" id="booksTable">
+      <thead>
+        <tr>
+          <th data-type="number">ID</th>
+          <th data-type="string">Title</th>
+          <th data-type="string">Author</th>
+          <th data-type="string">ISBN</th>
+          <th data-type="number">Total Copies</th>
+          <th data-type="number">Available</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (!books || books.length === 0) { %>
+          <tr>
+            <td colspan="6" class="empty-row">No books found.</td>
+          </tr>
+        <% } else { %>
+          <% books.forEach(b => { %>
+            <tr class="<%= b.available_copies === 0 ? 'active-row' : '' %>">
+              <td><%= b.id %></td>
+              <td><%= b.title %></td>
+              <td><%= b.author %></td>
+              <td><%= b.isbn || '-' %></td>
+              <td><%= b.total_copies %></td>
+              <td><%= b.available_copies %></td>
+            </tr>
+          <% }) %>
+        <% } %>
+      </tbody>
+    </table>
+  </section>
+
+  <footer class="page-footer">
+    <a href="/" class="link-muted">← Back to Dashboard</a>
+  </footer>
+
+</main>
+
+<script>
+  // --- SEARCH FILTER ---
+  const searchInput = document.getElementById('bookSearch');
+  const table = document.getElementById('booksTable');
+  const rows = table.querySelectorAll('tbody tr');
+
+  if (searchInput) {
+    searchInput.addEventListener('input', function () {
+      const q = this.value.toLowerCase();
+
+      rows.forEach(row => {
+        const cells = row.querySelectorAll('td');
+        if (!cells.length) return;
+
+        const title = cells[1].innerText.toLowerCase();
+        const author = cells[2].innerText.toLowerCase();
+        const isbn = cells[3].innerText.toLowerCase();
+
+        const match =
+          title.includes(q) ||
+          author.includes(q) ||
+          isbn.includes(q);
+
+        row.style.display = match ? '' : 'none';
+      });
+    });
+  }
+
+  // --- OPTIONAL: SIMPLE SORTING BY CLICKING HEADERS ---
+  document.querySelectorAll('#booksTable thead th[data-type]').forEach((th, colIndex) => {
+    th.style.cursor = 'pointer';
+    th.addEventListener('click', () => {
+      const type = th.getAttribute('data-type');
+      const tbody = table.querySelector('tbody');
+      const rowsArr = Array.from(tbody.querySelectorAll('tr'));
+
+      const currentOrder = th.dataset.order === 'asc' ? 'desc' : 'asc';
+      th.dataset.order = currentOrder;
+
+      rowsArr.sort((a, b) => {
+        let aVal = a.children[colIndex].innerText.trim();
+        let bVal = b.children[colIndex].innerText.trim();
+
+        if (type === 'number') {
+          aVal = Number(aVal) || 0;
+          bVal = Number(bVal) || 0;
+        } else {
+          aVal = aVal.toLowerCase();
+          bVal = bVal.toLowerCase();
+        }
+
+        if (aVal < bVal) return currentOrder === 'asc' ? -1 : 1;
+        if (aVal > bVal) return currentOrder === 'asc' ? 1 : -1;
+        return 0;
+      });
+
+      rowsArr.forEach(r => tbody.appendChild(r));
+    });
+  });
+</script>

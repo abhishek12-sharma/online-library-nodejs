@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Online Library Management</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <h1>Online Library</h1>
+        <span class="brand-subtitle">Management System</span>
+      </div>
+
+      <nav class="main-nav">
+        <a href="/">Home</a>
+        <a href="/users">Users</a>
+        <a href="/books">Books</a>
+        <a href="/issues">Issued Books</a>
+      </nav>
+
+      <!-- Theme Toggle Button (global) -->
+      <div class="theme-toggle">
+        <button id="toggleTheme">🌙 <span>Night</span></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <%- body %>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <%= new Date().getFullYear() %> Library</p>
+  </footer>
+
+  <script src="/js/script.js"></script>
+</body>
+</html>

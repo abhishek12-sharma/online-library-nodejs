@@ -1,0 +1,623 @@
+:root {
+  --bg-color: #f4f9ff;
+  --text-color: #1c1c1c;
+  --card-bg: rgba(255, 255, 255, 0.85);
+  --card-border: rgba(255, 255, 255, 0.9);
+  --shadow: rgba(0, 0, 0, 0.12);
+}
+
+.dark-theme {
+  --bg-color: #050811;
+  --text-color: #ffffff;
+  --card-bg: rgba(16, 20, 34, 0.95);
+  --card-border: rgba(255, 255, 255, 0.15);
+  --shadow: rgba(0, 0, 0, 0.7);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top, #dfe9ff 0, var(--bg-color) 45%, var(--bg-color) 100%);
+  color: var(--text-color);
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+/* HERO WRAPPER */
+.hero {
+  width: 100%;
+  max-width: 1000px;
+  text-align: center;
+  padding: 40px 25px 50px;
+  border-radius: 24px;
+  background: linear-gradient(
+    135deg,
+    rgba(116, 185, 255, 0.25),
+    rgba(162, 155, 254, 0.25)
+  );
+  backdrop-filter: blur(16px);
+  box-shadow: 0 18px 40px var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero h2 {
+  font-size: 2.4rem;
+  margin-bottom: 8px;
+}
+
+.hero p {
+  font-size: 1rem;
+  opacity: 0.9;
+  max-width: 520px;
+  margin: 0 auto 30px;
+}
+
+.cards {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* CARDS */
+.card {
+  width: 270px;
+  padding: 24px 20px;
+  border-radius: 18px;
+  text-decoration: none;
+  color: var(--text-color);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 10px 24px var(--shadow);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease,
+    border-color 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+
+.card h3 {
+  margin-bottom: 8px;
+  font-size: 1.2rem;
+}
+
+.card p {
+  font-size: 0.95rem;
+  opacity: 0.85;
+  margin: 0;
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  width: 110%;
+  height: 110%;
+  top: 0;
+  left: -10%;
+  background: linear-gradient(
+    130deg,
+    rgba(116, 185, 255, 0.3),
+    rgba(162, 155, 254, 0.35),
+    rgba(255, 234, 167, 0.3)
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+/* HOVER EFFECT */
+.card:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 20px 40px var(--shadow);
+  border-color: rgba(255, 255, 255, 0.9);
+}
+
+.card:hover::after {
+  opacity: 1;
+}
+
+/* THEME TOGGLE BUTTON */
+.theme-toggle {
+  position: absolute;
+  top: 18px;
+  right: 24px;
+  z-index: 10;
+}
+
+#toggleTheme {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  padding: 8px 11px;
+  border-radius: 999px;
+  font-size: 18px;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+  box-shadow: 0 8px 16px var(--shadow);
+}
+
+#toggleTheme span {
+  font-size: 0.8rem;
+}
+
+#toggleTheme:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 12px 24px var(--shadow);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .hero {
+    padding: 30px 18px 36px;
+  }
+
+  .hero h2 {
+    font-size: 2rem;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 320px;
+  }
+}
+/* PAGE LAYOUT FOR INNER PAGES */
+.page {
+  width: 100%;
+  max-width: 1100px;
+  background: var(--card-bg);
+  border-radius: 20px;
+  padding: 24px 22px 28px;
+  box-shadow: 0 16px 34px var(--shadow);
+  backdrop-filter: blur(14px);
+}
+
+/* Actions in page header (search + button) */
+.page-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.search-box {
+  position: relative;
+}
+
+.search-input {
+  padding: 8px 11px;
+  border-radius: 999px;
+  border: 1px solid rgba(120, 120, 120, 0.4);
+  font-size: 0.9rem;
+  background: rgba(255, 255, 255, 0.85);
+  outline: none;
+  min-width: 220px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  color: var(--text-color);
+}
+
+.search-input:focus {
+  border-color: rgba(116, 185, 255, 0.9);
+  box-shadow: 0 0 0 3px rgba(116, 185, 255, 0.25);
+  background: rgba(255, 255, 255, 1);
+}
+
+/* Small buttons for table actions */
+.btn-sm {
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  margin-right: 4px;
+}
+
+.btn-danger {
+  border-color: rgba(255, 118, 117, 0.8);
+  background: rgba(255, 118, 117, 0.15);
+}
+
+.btn-danger:hover {
+  background: rgba(255, 118, 117, 0.3);
+}
+
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.page-header h2 {
+  margin: 0;
+  font-size: 1.7rem;
+}
+
+.page-header p {
+  margin: 4px 0 0;
+  font-size: 0.95rem;
+  opacity: 0.85;
+}
+
+/* BUTTONS */
+.btn-primary,
+.btn-secondary {
+  border: none;
+  cursor: pointer;
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #74b9ff, #a29bfe);
+  color: #fff;
+  box-shadow: 0 8px 18px var(--shadow);
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px var(--shadow);
+}
+
+.btn-secondary {
+  background: rgba(116, 185, 255, 0.15);
+  color: var(--text-color);
+  border: 1px solid rgba(116, 185, 255, 0.6);
+}
+
+.btn-secondary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px var(--shadow);
+}
+
+/* TABLE */
+.table-wrapper {
+  margin-top: 10px;
+  overflow-x: auto;
+}
+
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.styled-table thead {
+  background: linear-gradient(135deg, rgba(116, 185, 255, 0.8), rgba(162, 155, 254, 0.8));
+  color: #fff;
+}
+
+.styled-table th,
+.styled-table td {
+  padding: 10px 12px;
+  text-align: left;
+}
+
+.styled-table tbody tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.styled-table tbody tr:nth-child(odd) {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Row hover */
+.styled-table tbody tr:hover {
+  background: rgba(116, 185, 255, 0.22);
+  transform: translateY(-1px);
+}
+
+/* Active vs returned rows */
+.active-row {
+  border-left: 4px solid #ff7675;
+}
+
+.returned-row {
+  border-left: 4px solid #55efc4;
+}
+
+.empty-row {
+  text-align: center;
+  font-style: italic;
+  opacity: 0.8;
+}
+
+/* TAGS & FOOTER */
+.tag {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.tag-success {
+  background: rgba(85, 239, 196, 0.2);
+  border: 1px solid rgba(85, 239, 196, 0.7);
+}
+
+.inline-form {
+  display: inline;
+}
+
+.page-footer {
+  margin-top: 12px;
+  font-size: 0.85rem;
+}
+
+.link-muted {
+  text-decoration: none;
+  opacity: 0.8;
+}
+
+.link-muted:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+/* ====== LAYOUT: HEADER / NAV / FOOTER ====== */
+
+.site-header {
+  width: 100%;
+  padding: 14px 32px;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 8px 18px var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.header-inner {
+  max-width: 1150px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.brand h1 {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.brand-subtitle {
+  display: block;
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+.main-nav {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.main-nav a {
+  text-decoration: none;
+  font-size: 0.9rem;
+  padding: 6px 10px;
+  border-radius: 999px;
+  opacity: 0.85;
+  background: transparent;
+  border: 1px solid transparent;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+  color: var(--text-color);
+}
+
+.main-nav a:hover {
+  background: rgba(116, 185, 255, 0.15);
+  border-color: rgba(116, 185, 255, 0.7);
+  transform: translateY(-1px);
+}
+
+/* main content area (centers hero/page cards) */
+.main-content {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 24px 16px 40px;
+  box-sizing: border-box;
+}
+
+/* footer */
+.site-footer {
+  text-align: center;
+  padding: 12px 0 18px;
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+/* Adjust existing body style: remove center flex if you had it */
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top, #dfe9ff 0, var(--bg-color) 45%, var(--bg-color) 100%);
+  color: var(--text-color);
+  margin: 0;
+  min-height: 100vh;
+  /* Remove display:flex/center if present earlier, since header+main handle layout now */
+}
+/* ========= FORM STYLING ========= */
+
+.styled-form {
+  margin-top: 10px;
+  background: var(--card-bg);
+  padding: 24px;
+  border-radius: 18px;
+  box-shadow: 0 12px 28px var(--shadow);
+  backdrop-filter: blur(12px);
+  max-width: 650px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+.styled-form select,
+.styled-form input[type="date"],
+.styled-form input[type="text"] {
+  padding: 10px 12px;
+  font-size: 0.95rem;
+  border-radius: 10px;
+  border: 1px solid rgba(120, 120, 120, 0.3);
+  background: rgba(255, 255, 255, 0.65);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  color: var(--text-color);
+}
+
+.styled-form select:focus,
+.styled-form input[type="date"]:focus {
+  border-color: rgba(116, 185, 255, 0.8);
+  box-shadow: 0 0 0 3px rgba(116, 185, 255, 0.25);
+}
+
+/* Submit button */
+.form-submit-btn {
+  margin-top: 10px;
+  width: fit-content;
+}
+
+/* Footer under form */
+.form-footer {
+  margin-top: 8px;
+  text-align: left;
+}
+
+.form-footer a {
+  font-size: 0.85rem;
+}
+
+
+
+/* ==== BOOKS PAGE BASIC LAYOUT ==== */
+main {
+  max-width: 1100px;
+  margin: 30px auto 40px;
+  padding: 20px 18px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 18px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+h2 {
+  margin-top: 0;
+  font-size: 1.8rem;
+  margin-bottom: 8px;
+}
+
+main > p {
+  margin-top: 0;
+  opacity: 0.85;
+}
+
+/* ==== ADD NEW BOOK BUTTON ==== */
+a.btn {
+  display: inline-block;
+  margin: 10px 0 14px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #74b9ff, #a29bfe);
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+a.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* ==== TABLE STYLING ==== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+thead {
+  background: linear-gradient(135deg, #74b9ff, #a29bfe);
+  color: #fff;
+}
+
+th,
+td {
+  padding: 10px 12px;
+  text-align: left;
+}
+
+tbody tr:nth-child(even) {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+tbody tr:nth-child(odd) {
+  background: rgba(0, 0, 0, 0.01);
+}
+
+/* Hover effect on rows */
+tbody tr:hover {
+  background: rgba(116, 185, 255, 0.18);
+}
+
+/* Empty row text */
+tbody tr td[colspan] {
+  text-align: center;
+  font-style: italic;
+  opacity: 0.8;
+}
+
+/* Edit / Delete buttons inside table, if you use them later */
+table a,
+table button {
+  font-size: 0.8rem;
+}

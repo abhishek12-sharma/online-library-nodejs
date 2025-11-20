@@ -1,0 +1,65 @@
+<main class="page">
+
+  <header class="page-header">
+    <div>
+      <h2>✏️ Edit Book</h2>
+      <p>Update the details of the selected book.</p>
+    </div>
+  </header>
+
+  <form action="/books/<%= book.id %>/edit" method="POST" class="styled-form">
+
+    <div class="form-group">
+      <label>Title</label>
+      <input
+        type="text"
+        name="title"
+        value="<%= book.title %>"
+        required
+      >
+    </div>
+
+    <div class="form-group">
+      <label>Author</label>
+      <input
+        type="text"
+        name="author"
+        value="<%= book.author %>"
+        required
+      >
+    </div>
+
+    <div class="form-group">
+      <label>ISBN</label>
+      <input
+        type="text"
+        name="isbn"
+        value="<%= book.isbn || '' %>"
+      >
+    </div>
+
+    <div class="form-group">
+      <label>Total Copies</label>
+      <input
+        type="number"
+        name="total_copies"
+        min="1"
+        value="<%= book.total_copies %>"
+        required
+      >
+      <small style="font-size: 0.8rem; opacity: 0.7;">
+        Available copies will adjust based on the new total.
+      </small>
+    </div>
+
+    <button type="submit" class="btn-primary form-submit-btn">
+      Save Changes
+    </button>
+
+    <div class="form-footer">
+      <a href="/books" class="link-muted">← Back to Books</a>
+    </div>
+
+  </form>
+
+</main>

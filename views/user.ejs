@@ -1,0 +1,29 @@
+
+
+<h2>Users</h2>
+<a class="btn" href="/users/new">+ Add New User</a>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Created At</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if (users.length === 0) { %>
+      <tr><td colspan="4">No users found.</td></tr>
+    <% } else { %>
+      <% users.forEach(u => { %>
+        <tr>
+          <td><%= u.id %></td>
+          <td><%= u.name %></td>
+          <td><%= u.email %></td>
+          <td><%= u.created_at.toISOString().slice(0, 19).replace('T', ' ') %></td>
+        </tr>
+      <% }) %>
+    <% } %>
+  </tbody>
+</table>
